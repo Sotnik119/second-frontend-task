@@ -16,11 +16,9 @@ function productCount(){
 
 function times(n, callback){
 	var list = [];
-
 	for (var i = 0; i < n; ++i) {
 		list.push(callback(i));
 	}
-
 	return list;
 }
 
@@ -43,8 +41,17 @@ var products = categories.map(function(category) {
 	} else {
 		return [];
 	}
+}).reduce(function(a, b) {
+	return a.concat(b);
 });
 
+function authChecker(req, res, next) {
+	if (sessions[req.headers.sid]) {
+        next();
+    } else {
+       res.redirect("/");
+    }
+}
 var users = {};
 
 app.post('/signup', function (req, res) {
@@ -76,20 +83,25 @@ app.post('/login', function(req, res) {
 	}
 });
 
-app.get('/categories', function(req, res) {
-	if (!sessions[req.headers.sid]) {
-		res.status(403).send('Unathorized');
-		return;
-	}
-	res.json(categories);
+app.get('/categories', authChecker, function(req, res) {
+	res.json(categories.filter(function(element) {
+		return element.parentId == null;
+	}));
+});
+app.get('/categories/:id', authChecker, function(req, res) {
+	res.json(categories.filter(function(element) {
+		return element.parentId == req.params.id;
+	}));
 });
 
-app.get('/products', function(req, res) {
-	if (!sessions[req.headers.sid]) {
-		res.status(403).send('Unathorized');
-		return;
-	}
+app.get('/products', authChecker, function(req, res) {
 	res.json(products);
+});
+
+app.get('/products/:category_id', authChecker, function(req, res) {
+	res.json(products.filter(function(element) {
+		return element.categoryId == req.params.category_id;
+	}));
 });
 
 app.listen(3030, function() {
