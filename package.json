@@ -4,8 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "npm run server & npm run dev",
+    "dev": "webpack --watch --env=development",
+    "prod": "webpack --env=production",
+    "server": "node ./src/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,10 +20,11 @@
   },
   "homepage": "https://github.com/Panshin/Frontend-test-task",
   "dependencies": {
-    "body-parser": "^1.12.3",
-    "express": "^4.12.3",
-    "gulp": "^3.8.11",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.2.0"
+    "body-parser": "1.12.3",
+    "express": "4.12.3"
+  },
+  "devDependencies": {
+    "webpack": "4.16.5",
+    "webpack-cli": "3.1.0"
   }
 }
