@@ -15,17 +15,16 @@ module.exports = env => ({
 	},
 	module: {
 		rules: [
-		  {
-			test: /\.(js|jsx)$/,
-			exclude: /node_modules/,
-			use: {
-			  loader: 'babel-loader',
-			  options:{
-				  presets: ['react', 'env','stage-2']
+			{
+				test: /\.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['react', 'env', 'stage-2']
+					}
 				}
 			}
-		  }
-		  
 		]
-	  }
+	}
 });
