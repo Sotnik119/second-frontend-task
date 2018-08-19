@@ -15,7 +15,7 @@ class Login extends Component {
         if (!this.state.login.trim() || !this.state.password.trim()) {
             alert('Ошибка! Пожалуйста, заполните все поля');
         } else {
-            loginUser(this.state.login, this.state.password)
+            loginUser(this.state.login, this.state.password, this.props.history.push)
         }
     }
 

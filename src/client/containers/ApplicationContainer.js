@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import Application from '../components/Application';
-import { setId } from '../consts/actions';
+import { setId, logout } from '../consts/actions';
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state) => ({
       token: state.sid
-})
+});
 
-export default connect(mapStateToProps, { setId })(Application);
+export default withRouter(connect(mapStateToProps, { setId, logout })(Application));

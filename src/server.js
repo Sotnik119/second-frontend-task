@@ -104,6 +104,10 @@ app.get('/products/:category_id', authChecker, function(req, res) {
 	}));
 });
 
+app.get('/*', function (req, res) {
+	res.sendFile(path.join(__dirname, '../public', 'index.html'));
+  });
+
 app.listen(3030, function() {
 	console.log('Server start http://localhost:3030');
 });

@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import Category from './category';
 import SubCategory from './subCategory';
 
-class Catalog extends Component {    
+class Catalog extends Component {
     componentDidMount() {
         const { token, getCategories } = this.props;
-        getCategories(token);
+        token ?
+            getCategories(token)
+            :
+            this.props.history.push('/signin');
     }
 
     render() {

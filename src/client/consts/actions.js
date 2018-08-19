@@ -20,7 +20,7 @@ export const setProducts = (products) => ({
     playload: products
 })
 
-export const registerUser = (userlogin, userpassword) => dispatch=> {
+export const registerUser = (userlogin, userpassword) => dispatch => {
     return fetch("/signup",
         {
             headers: {
@@ -32,18 +32,18 @@ export const registerUser = (userlogin, userpassword) => dispatch=> {
         })
         .then((response) => {
             return (response.status)
-        }).then((code) => {            
-                if (code == 200) {
-                    alert("Вы успешно зарегистрировались")
-                } else {
-                    alert("Ошибка регистрации")
-                }
-                return null            
+        }).then((code) => {
+            if (code == 200) {
+                alert("Вы успешно зарегистрировались")
+            } else {
+                alert("Ошибка регистрации")
+            }
+            return null
         })
         .catch(alert);
 }
 
-export const loginUser = (userlogin, userpassword) => dispatch => {
+export const loginUser = (userlogin, userpassword, redirect) => dispatch => {
     return fetch("/login",
         {
             headers: {
@@ -58,8 +58,14 @@ export const loginUser = (userlogin, userpassword) => dispatch => {
         })
         .then((object) => {
             dispatch(setId(object.sid));
+            redirect('/catalog');
         })
         .catch(alert);
+}
+
+export const logout = (redirect) => dispatch => {
+    dispatch(setId(''));
+    redirect('/signin');
 }
 
 export const getCategories = (sid) => dispatch => {
